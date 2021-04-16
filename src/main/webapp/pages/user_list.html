@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../vuejs/vuejs-2.5.16.js"></script>
+    <script type="text/javascript" src="../vuejs/axios-0.18.0.js"></script>
+</head>
+<body>
+    <div id="userdiv">
+        <div id="userlistdiv">
+            <table align="center" border="1" rules="all">
+                <tr align="center" bgcolor="#00ffff">
+                    <th>编码</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>性别</th>
+                    <th>生日</th>
+                    <th>手机号</th>
+                    <th>地址</th>
+                    <th>部门</th>
+                    <th>职位</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="u in userlist">
+                    <td>{{u.id}}</td>
+                    <td>{{u.uname}}</td>
+                    <td>{{u.age}}</td>
+                    <td>
+                        <span v-if="u.gender==1"> 男</span>
+                        <span v-if="u.gender==2"> 女</span>
+                    </td>
+                    <td>{{u.birthday}}</td>
+                    <td>{{u.telphone}}</td>
+                    <td>{{u.address}}</td>
+                    <td>{{u.deptname}}</td>
+                    <td>{{u.postname}}</td>
+                    <td>
+                        <button @click="fpDept(u.id)">分配部门</button>
+                        <button @click="fpPost(u.id)">分配职位</button>
+                        <button @click="fpQuanxian(u.id)">分配权限</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="bumen" style="display: none">
+            <table>
+                <tr>
+                    <td colspan="100"><h1>目前在给<b style="color: #00B83F">{{user.uname}}</b>分配部门</h1></td>
+                </tr>
+                <tr>
+                    <td>部门</td>
+                    <td>
+                       <span v-for="d in deptList">
+                            <input type="checkbox" name="deptids" v-model="deptids" :value="d.id"/>{{d.deptname}}<br>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="100">
+                        <button @click="saveUserDept(user.id)">保存</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="postTitle" style="display: none">
+            <h1>正在给<b style="color: #00B83F">{{userBean.uname}}</b>分配职位</h1>
+            <table border="1" rules="all" style="text-align: center">
+                <!--<tr v-if="dlist.length==0">
+                    <td colspan="100">
+                        请先给用户分配部门
+                    </td>
+                </tr>-->
+                <tr v-for="d in deptList">
+                    <td>{{d.deptname}}</td>
+                    <td>
+                        <span v-for="p in d.plist">
+                            <input type="checkbox" v-model="d.postids" v-bind:value="p.id"/>{{p.postname}}<br>
+                        </span>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td colspan="100">
+                        <button @click="saveUserPost()">保存</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../myjs/user_list.js"></script>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ln.mapper.LoginMapper">
+    <select id="goLogin" resultType="com.ln.entity.UserBean">
+        select * from tb_user where username = #{username} or telphone = #{username}
+    </select>
+
+    <select id="findAllQuanXian" resultType="java.lang.String">
+        SELECT
+            url
+        FROM
+            tb_user_post a
+            LEFT JOIN tb_user b ON a.userid = b.id
+            LEFT JOIN tb_post_meun c ON c.postid = a.postid
+            LEFT JOIN tb_meun d ON d.id = c.meunid
+        WHERE
+            a.userid = #{value }
+            and url is not null
+    </select>
+</mapper>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../vuejs/vuejs-2.5.16.js"></script>
+    <script type="text/javascript" src="../vuejs/axios-0.18.0.js"></script>
+</head>
+<body>
+    <div id="meundiv">
+        <table border="1" align="center">
+            <tr>
+                <th>id</th>
+                <th>父id</th>
+                <th>节点名称</th>
+                <th>url</th>
+                <th>target</th>
+                <th>icon</th>
+                <th>是否是按钮</th>
+                <th colspan="100">
+                    操作
+                    <button @click="addMsg()">添加</button>
+                </th>
+            </tr>
+            <tr v-for="m in menuList">
+                <td>{{m.id}}</td>
+                <td>{{m.pid}}</td>
+                <td>{{m.mname}}</td>
+                <td>{{m.url}}</td>
+                <td>{{m.target}}</td>
+                <td>{{m.icon}}</td>
+                <td>{{m.isbutton=='0'?'否':'是'}}</td>
+                <td colspan="100">
+                    <button @click="queryLast(m.id)">查询下级</button>
+                    <button @click="deleteByid(m.id)">删除</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100">
+                    当前{{page.currentPage==0?1:page.currentPage}}/{{page.pageCount==0?1:page.pageCount}}页;每页{{page.pageSize}}/共{{page.count}}条;
+                    <button @click="packing(1)">首页</button>
+                    <button @click="packing(page.previousPage)">上一页</button>
+                    <button @click="packing(page.nextPage)">下一页</button>
+                    <button @click="packing(page.pageCount)">尾页</button>
+                </td>
+            </tr>
+        </table>
+        <div id="tb2" style="display: none">
+            <table border="1" rules="all" align="center">
+                <tr>
+                    <td>父id</td>
+                    <td>
+                        {{pid}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        节点名称
+                    </td>
+                    <td>
+                        <input type="text" v-model="entity.mname"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        url
+                    </td>
+                    <td>
+                        <input type="text" v-model="entity.url"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        target
+                    </td>
+                    <td>
+                        <input type="text" v-model="entity.target"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        icon
+                    </td>
+                    <td>
+                        <input type="text" v-model="entity.icon"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        按钮
+                    </td>
+                    <td>
+                        <select v-model="entity.isbutton">
+                            <option :value="0">否</option>
+                            <option :value="1">是</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr align="center">
+                    <td colspan="100">
+                        <input type="button" value="保存" @click="saveMsg()"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<script src="../myjs/menu_list.js"></script>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../vuejs/vuejs-2.5.16.js"></script>
+    <script type="text/javascript" src="../vuejs/axios-0.18.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <table border="1" align="center">
+            <tr>
+                <th colspan="100">
+                    名称：<input type="text" v-model="search.deptname"/><button @click="findAll()">检索</button>
+                </th>
+            </tr>
+            <tr align="center">
+                <th>编号</th>
+                <th>名称</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="d in deptlist" align="center">
+                <td>{{d.id}}</td>
+                <td>{{d.deptname}}</td>
+                <td>
+                    <button>删除</button>
+                    <button @click="fpPost(d.id)">分配职位</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100">
+                    当前{{page.currentPage}}/{{page.pageCount}}页;每页{{page.pageSize}}/{{page.count}}条;
+                    <button @click="packing(1)">首页</button>
+                    <button @click="packing(page.previousPage)">上一页</button>
+                    <button @click="packing(page.nextPage)">下一页</button>
+                    <button @click="packing(page.pageCount)">尾页</button>
+                </td>
+            </tr>
+        </table>
+        <div id="postTitle" style="display: none">
+            <table>
+                <tr>
+                    <td colspan="100"><h1>目前在给<b style="color: red">{{deptEntity.deptname}}</b>分配职位</h1></td>
+                </tr>
+                <tr>
+                    <td>职位</td>
+                    <td>
+                       <span v-for="p in postList">
+                            <input type="checkbox" v-model="checkedPost" :value="p.id"/>{{p.postname}}<br>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="100">
+                        <button @click="saveDeptPost()">保存</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+<script src="../myjs/dept_list.js"></script>
+</html>

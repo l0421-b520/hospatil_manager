@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>蜀山精神病院</title>
+    <script type="text/javascript" src="../vuejs/vuejs-2.5.16.js"></script>
+    <script type="text/javascript" src="../vuejs/axios-0.18.0.js"></script>
+</head>
+<body class="hold-transition login-page">
+<div id="particles">
+</div>
+    <div id="login" align="center">
+        <form>
+            姓名：<input type="text"  v-model="user.username" required="required"><br>
+            密码：<input type="password"  v-model="user.pwd" required="required"><br>
+            <input type="button" @click="getLogin()" value="登录">
+        </form>
+    </div>
+</body>
+<script src="../myjs/login_js.js"></script>
+</html>
